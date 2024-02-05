@@ -1,4 +1,5 @@
 import { Place } from "./place.model";
+import { Reserve } from "./reserve.model";
 
 export class User{
 
@@ -10,10 +11,14 @@ export class User{
 
     private userPassword: string;
 
+    private userReserve: Reserve[] = [];
+
 
     constructor(name: string, password: string){
 
-        this.id = User.idUser++;
+        User.idUser++;
+
+        this.id = User.idUser;
 
         this.userName = name;
 
@@ -38,5 +43,19 @@ export class User{
         return this.userPassword;
 
     }
+
+    public getReserve(): Reserve[]{
+
+        return this.userReserve;
+
+    }
+
+
+    public addReserve(place: Place, date: Date){
+
+        this.userReserve.push();
+
+    }
+
 
 }

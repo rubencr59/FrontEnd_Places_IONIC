@@ -11,23 +11,30 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./discover.page.scss']
 })
 export class DiscoverPage implements OnInit {
-  loadedPlaces: Place[];
+  loadedPlaces: Place[] = [];  // Inicializa con un array vacío
 
   constructor(
     private placesService: PlacesService,
     private userService: UserService,
     private menuCtrl: MenuController
   ) {}
-
+  
   ngOnInit() {
-    this.loadedPlaces = this.placesService.places;
+    this.placesService.getPlaces().subscribe(places => {
+      console.log('Loaded Places:', places);
+      if (places) {
+        this.loadedPlaces = places;
+      }
+    });
+
+    this.placesService.updateAllPlaces();
   }
 
   onOpenMenu() {
     this.menuCtrl.toggle();
   }
 
-  getUsernamePlace(id: number): string{
-    return this.userService.getUserById(id).getName();
+  getUsernamePlace(id: number): string {
+    return this.userService.getUserById(id).getName() ;
   }
 }
